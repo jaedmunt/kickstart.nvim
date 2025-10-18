@@ -217,6 +217,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- [[ Platform-specific data directories ]]
+-- This prevents Windows and WSL from sharing compiled binaries (.so files)
+local is_wsl = vim.fn.has('wsl') == 1
+if is_wsl then
+  -- Use separate data/cache for WSL to avoid binary conflicts
+  vim.fn.setenv('XDG_DATA_HOME', vim.fn.expand('~/.local/share/nvim-wsl'))
+  vim.fn.setenv('XDG_CACHE_HOME', vim.fn.expand('~/.cache/nvim-wsl'))
+end
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

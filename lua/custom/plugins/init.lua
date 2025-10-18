@@ -24,16 +24,8 @@ local csvview_plugin = {
   end,
 }
 
--- Yazi Plugin - File explorer with DuckDB extension for viewing Parquet files
--- Manual setup required for duckdb.yazi (Linux/WSL):
---   1. Install DuckDB: https://duckdb.org/docs/installation/
---   2. Clone plugin: git clone https://github.com/wylie102/duckdb.yazi ~/.config/yazi/plugins/duckdb.yazi
---   3. Make executable: chmod +x ~/.config/yazi/plugins/duckdb.yazi/preview.sh
---   4. Configure ~/.config/yazi/yazi.toml:
---      [plugin]
---      prepend_previewers = [
---        { name = "*.parquet", run = "duckdb" },
---      ]
+-- Yazi Plugin - File explorer
+-- Note: DuckDB Parquet preview only works in WSL/Linux
 local yazi_plugin = {
   'mikavilpas/yazi.nvim',
   config = function()
@@ -47,18 +39,18 @@ local yazi_plugin = {
   cmd = { 'Yazi' },
 }
 
--- Image Plugin
+-- Image Plugin - Only works on Linux/WSL (requires ioctl)
 local image_plugin = {
   '3rd/image.nvim',
-  enabled = not is_windows,
-  dependencies = { 'vhyrro/luarocks.nvim' }, -- magick installed for rendering
+  enabled = not is_windows, -- Windows lacks ioctl support
+  dependencies = { 'vhyrro/luarocks.nvim' },
   build = false,
   opts = {
-    processor = 'magick_cli', -- ImageMagick CLI backend
+    processor = 'magick_cli',
   },
   config = function()
     require('image').setup {
-      backend = 'kitty', -- or 'ueberzug' / 'wezterm'
+      backend = 'kitty',
       integrations = {
         markdown = {
           enabled = true,
@@ -381,11 +373,17 @@ local dashboard_plugin = {
 local feed_plugin = {
   'neo451/feed.nvim',
   cmd = 'Feed',
-  -- stylua: ignore start
-  opts = {
-    -- see :h feed.config for configuration details
-  },
-  -- stylua: ignore end
+  config = function()
+    local ok, feed = pcall(require, 'feed')
+    if ok then
+      local setup_ok, _ = pcall(feed.setup, {
+        -- see :h feed.config for configuration details
+      })
+      if not setup_ok then
+        vim.notify('feed.nvim setup failed - run :Feed to initialize feeds', vim.log.levels.WARN)
+      end
+    end
+  end,
 }
 
 local music_controls_plugin = {
