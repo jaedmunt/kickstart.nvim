@@ -57,47 +57,47 @@ local image_plugin = {
 
 -- Jupyter Notebook plugin (Molten)
 local molten_plugin = {
-  'benlubas/molten-nvim',
-  build = ':UpdateRemotePlugins', -- Required for Jupyter integration
-  dependencies = {
-    '3rd/image.nvim', -- Enables inline image support if possible
-  },
-  config = function()
-    vim.g.molten_auto_open_output = true
-    vim.g.molten_image_provider = 'image' -- Use image.nvim for display of images in the notebook
-    vim.g.molten_wrap_output = true
-  end,
-  ft = { 'python', 'jupyter' },
+    'benlubas/molten-nvim',
+    build = ':UpdateRemotePlugins', -- Required for Jupyter integration
+    dependencies = {
+      '3rd/image.nvim', -- Enables inline image support if possible
+    },
+    config = function()
+      vim.g.molten_auto_open_output = true
+      vim.g.molten_image_provider = 'image' -- Use image.nvim for display of images in the notebook
+      vim.g.molten_wrap_output = true
+    end,
+    ft = { 'python', 'jupyter' },
 }
 
 local lsp_with_coq_plugin = {
-  'neovim/nvim-lspconfig', -- REQUIRED: for native Neovim LSP integration
-  lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-  dependencies = {
-    -- main one
-    { 'ms-jpq/coq_nvim', branch = 'coq' },
+    'neovim/nvim-lspconfig', -- REQUIRED: for native Neovim LSP integration
+    lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+    dependencies = {
+      -- main one
+      { 'ms-jpq/coq_nvim', branch = 'coq' },
 
-    -- 9000+ Snippets
-    { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
+      -- 9000+ Snippets
+      { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
 
-    -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-    -- Need to **configure separately**
-    { 'ms-jpq/coq.thirdparty', branch = '3p' },
-    -- - shell repl
-    -- - nvim lua api
-    -- - scientific calculator
-    -- - comment banner
-    -- - etc
-  },
-  init = function()
-    vim.g.coq_settings = {
-      auto_start = true, -- if you want to start COQ at startup
-      -- Your COQ settings here
-    }
-  end,
-  config = function()
-    -- Your LSP settings here
-  end,
+      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+      -- Need to **configure separately**
+      { 'ms-jpq/coq.thirdparty', branch = '3p' },
+      -- - shell repl
+      -- - nvim lua api
+      -- - scientific calculator
+      -- - comment banner
+      -- - etc
+    },
+    init = function()
+      vim.g.coq_settings = {
+        auto_start = true, -- if you want to start COQ at startup
+        -- Your COQ settings here
+      }
+    end,
+    config = function()
+      -- Your LSP settings here
+    end,
 }
 
 -- Don't change the ascii art. It is formatted correctly
@@ -110,20 +110,106 @@ local dashboard_plugin = {
   },
   config = function()
     local dashboard = require('dashboard')
+    local utils = require('dashboard.utils')
     local uv = vim.loop
-    local timer
+    local footer_timer
+    local header_timer
+    local header_ns = vim.api.nvim_create_namespace('DashboardAnimatedHeader')
 
-    local function stop_timer()
-      if timer and not timer:is_closing() then
-        timer:stop()
-        timer:close()
+    -- - Diagram of a Chain Reaction -
+    local header_lines = vim.split(
+      [[============================================================================
+        - Fall seven times, stand up eight. -
+        -------------------------------
+        |
+        |
+        |
+        |
+        [1]------------------------------> o
+
+        . o o .
+[2]---->. o_0_o .
+        . o 0 o .
+        . o o .
+
+        |
+        \|/
+        ~
+
+        . o o. .o o .
+[3]--> . o_0_o"o_0_o .
+        . o 0 o~o 0 o .
+        . o o.".o o .
+        |
+        /    |    \
+        |/_    |    _\|
+        ~~     |     ~~
+        |
+        o o        |        o o
+  [4]----------------------> o_0_o        |       o_0_o <-----------------[5]
+        o~0~o        |        o~0~o
+        o o )       |       ( o o
+        /        o        \
+        /        [1]        \
+        /                    \
+        /                      \
+        /                        \
+        o [1]                  [1] o
+        . o o .            . o o .            . o o .
+        . o_0_o .          . o_0_o .          . o_0_o .
+        . o 0 o .  <-[2]-> . o 0 o . <-[2]->  . o 0 o .
+        . o o .            . o o .            . o o .
+
+        /                    |                    \
+        |/_                   \|/                   _\|
+        ~~                     ~                     ~~
+        ~.:.<>.:.~
+        .:.~.:.~.:.~.:.<>.:.~.:.~.:.~.:.
+        ~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.<>.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~
+=============================================================================]],
+      '\n',
+      { plain = true }
+    )
+
+    local centered_header = utils.center_align(header_lines)
+    local header_placeholder = {}
+    for idx, line in ipairs(centered_header) do
+      if line == '' then
+        header_placeholder[idx] = ''
+      else
+        header_placeholder[idx] = line:gsub('.', ' ')
       end
-      timer = nil
     end
+
+    local function stop_footer_timer()
+      if footer_timer and not footer_timer:is_closing() then
+        footer_timer:stop()
+        footer_timer:close()
+      end
+      footer_timer = nil
+    end
+
+    local function stop_header_timer()
+      if header_timer and not header_timer:is_closing() then
+        header_timer:stop()
+        header_timer:close()
+      end
+      header_timer = nil
+    end
+
+    local function stop_all_timers()
+      stop_footer_timer()
+      stop_header_timer()
+    end
+
+    local header_animated = false
 
     vim.api.nvim_create_autocmd('VimLeavePre', {
       once = true,
-      callback = stop_timer,
+      callback = function()
+        header_animated = false
+        stop_all_timers()
+      end,
     })
 
     dashboard.setup {
@@ -134,57 +220,7 @@ local dashboard_plugin = {
         winbar = true,
       },
       config = {
-        header = vim.split(
-      [[============================================================================
-      - Diagram of a Chain Reaction -
-      -------------------------------
-      |
-      |
-      |
-      |
-      [1]------------------------------> o
-
-      . o o .
-[2]---->. o_0_o . 
-      . o 0 o .
-      . o o .
-
-      |
-      \|/
-      ~
-
-      . o o. .o o .
-[3]--> . o_0_o"o_0_o .
-      . o 0 o~o 0 o .
-      . o o.".o o .
-      |
-      /    |    \
-      |/_    |    _\|
-      ~~     |     ~~
-      |
-      o o        |        o o
-[4]----------------------> o_0_o        |       o_0_o <-----------------[5]
-      o~0~o        |        o~0~o
-      o o )       |       ( o o
-      /        o        \
-      /        [1]        \
-      /                    \
-      /                      \
-      /                        \
-o [1]                  [1] o
-      . o o .            . o o .            . o o .
-      . o_0_o .          . o_0_o .          . o_0_o .
-      . o 0 o .  <-[2]-> . o 0 o . <-[2]->  . o 0 o .
-      . o o .            . o o .            . o o .
-
-      /                    |                    \
-      |/_                   \|/                   _\|
-      ~~                     ~                     ~~
-       ~.:.<>.:.~
-       .:.~.:.~.:.~.:.<>.:.~.:.~.:.~.:.
-       ~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.<>.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~
-============================================================================]],
- '\n', { plain = true }),
+        header = header_placeholder,
         center = {
           {
             icon = ' ',
@@ -250,13 +286,13 @@ o [1]                  [1] o
           return
         end
 
-        stop_timer()
+        stop_all_timers()
 
         local opened_at = uv.hrtime()
-        timer = uv.new_timer()
-        timer:start(0, 25, vim.schedule_wrap(function()
+        footer_timer = uv.new_timer()
+        footer_timer:start(0, 25, vim.schedule_wrap(function()
           if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
-            stop_timer()
+            stop_footer_timer()
             return
           end
 
@@ -265,10 +301,63 @@ o [1]                  [1] o
           vim.cmd({ cmd = 'DashboardUpdateFooter', args = { formatted } })
         end))
 
+        local total_header_lines = #centered_header
+
+        -- restore initial header placeholder
+        vim.bo[bufnr].modifiable = true
+        vim.api.nvim_buf_set_lines(bufnr, 0, total_header_lines, false, header_placeholder)
+        vim.bo[bufnr].modifiable = false
+
+        local function schedule_header_line(idx, delay)
+          if header_animated then
+            vim.bo[bufnr].modifiable = true
+            vim.api.nvim_buf_set_lines(bufnr, 0, total_header_lines, false, centered_header)
+            for line = 1, total_header_lines do
+              vim.api.nvim_buf_add_highlight(bufnr, header_ns, 'DashboardHeader', line - 1, 0, -1)
+            end
+            vim.bo[bufnr].modifiable = false
+            stop_header_timer()
+            return
+          end
+
+          if idx > total_header_lines then
+            stop_header_timer()
+            return
+          end
+
+          header_timer = uv.new_timer()
+          header_timer:start(delay, 0, vim.schedule_wrap(function()
+            if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+              stop_header_timer()
+              return
+            end
+
+            vim.bo[bufnr].modifiable = true
+            vim.api.nvim_buf_set_lines(bufnr, idx - 1, idx, false, { centered_header[idx] })
+            vim.api.nvim_buf_add_highlight(bufnr, header_ns, 'DashboardHeader', idx - 1, 0, -1)
+            vim.bo[bufnr].modifiable = false
+            stop_header_timer()
+
+            if idx == total_header_lines then
+              header_animated = true
+              stop_footer_timer()
+              return
+            end
+
+            local next_delay = idx >= total_header_lines - 2 and 420 or math.max(20, delay * 0.8)
+            schedule_header_line(idx + 1, next_delay)
+          end))
+        end
+
+        schedule_header_line(1, 140)
+
         vim.api.nvim_create_autocmd({ 'BufLeave', 'BufWipeout', 'BufHidden' }, {
           buffer = bufnr,
           once = true,
-          callback = stop_timer,
+          callback = function()
+            header_animated = false
+            stop_all_timers()
+          end,
         })
       end,
     })
@@ -291,7 +380,7 @@ local music_controls_plugin = {
 
 local luxmotion_plugin = {
   'LuxVim/nvim-luxmotion',
-  config = function()
+    config = function()
     require('luxmotion').setup {
       cursor = {
         duration = 250, -- Cursor animation duration (ms)
@@ -310,8 +399,8 @@ local luxmotion_plugin = {
         cursor = true, -- Enable cursor motion keymaps
         scroll = true, -- Enable scroll motion keymaps
       },
-    }
-  end,
+      }
+    end,
 }
 
 local vim_be_good_plugin = {
@@ -339,7 +428,7 @@ local leetcode_plugin = {
       open_on_runcode = true,
     },
   },
-}
+  }
 
 return {
   csvview_plugin,
