@@ -5,3 +5,7 @@ nvim
 
 spell/
 lazy-lock.json
+
+duckdb
+duckdb.exe
+duckdb.yazi
