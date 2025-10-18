@@ -24,14 +24,25 @@ local csvview_plugin = {
   end,
 }
 
--- Yazi Plugin - File explorer. Installed to use with CsvView
+-- Yazi Plugin - File explorer with DuckDB extension for viewing Parquet files
+-- Manual setup required for duckdb.yazi (Linux/WSL):
+--   1. Install DuckDB: https://duckdb.org/docs/installation/
+--   2. Clone plugin: git clone https://github.com/wylie102/duckdb.yazi ~/.config/yazi/plugins/duckdb.yazi
+--   3. Make executable: chmod +x ~/.config/yazi/plugins/duckdb.yazi/preview.sh
+--   4. Configure ~/.config/yazi/yazi.toml:
+--      [plugin]
+--      prepend_previewers = [
+--        { name = "*.parquet", run = "duckdb" },
+--      ]
 local yazi_plugin = {
   'mikavilpas/yazi.nvim',
-  dependencies = {
-    'wylie102/duckdb.yazi',
-  },
   config = function()
-    require('yazi').setup()
+    require('yazi').setup {
+      open_for_directories = false,
+      keymaps = {
+        show_help = '<f1>',
+      },
+    }
   end,
   cmd = { 'Yazi' },
 }
