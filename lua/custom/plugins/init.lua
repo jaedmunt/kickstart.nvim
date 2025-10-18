@@ -110,6 +110,21 @@ local dashboard_plugin = {
   },
   config = function()
     local dashboard = require('dashboard')
+    local uv = vim.loop
+    local timer
+
+    local function stop_timer()
+      if timer and not timer:is_closing() then
+        timer:stop()
+        timer:close()
+      end
+      timer = nil
+    end
+
+    vim.api.nvim_create_autocmd('VimLeavePre', {
+      once = true,
+      callback = stop_timer,
+    })
 
     dashboard.setup {
       theme = 'doom',
@@ -222,10 +237,41 @@ o [1]                  [1] o
           },
         },
         footer = {
-          'Time To First Byte.',
+          'Time To First Byte: 0.000s',
         },
       },
     }
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'DashboardLoaded',
+      callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+          return
+        end
+
+        stop_timer()
+
+        local opened_at = uv.hrtime()
+        timer = uv.new_timer()
+        timer:start(0, 25, vim.schedule_wrap(function()
+          if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+            stop_timer()
+            return
+          end
+
+          local elapsed = (uv.hrtime() - opened_at) / 1e9
+          local formatted = string.format('Time To First Byte: %.3fs', elapsed)
+          vim.cmd({ cmd = 'DashboardUpdateFooter', args = { formatted } })
+        end))
+
+        vim.api.nvim_create_autocmd({ 'BufLeave', 'BufWipeout', 'BufHidden' }, {
+          buffer = bufnr,
+          once = true,
+          callback = stop_timer,
+        })
+      end,
+    })
   end,
 }
 
