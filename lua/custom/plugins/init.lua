@@ -5,6 +5,8 @@
 --
 -- NOTE (JM): Define plugins directly in this file (not separate .lua files) to avoid loading errors
 
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+
 -- -- CSV View Plugin - for csv files. Open a csv and use CsvViewToggle to enable the view.
 
 -- Primary commands for the csvview.nvim plugin in Neovim are :CsvViewEnable, :CsvViewDisable, and :CsvViewToggle.
@@ -37,6 +39,7 @@ local yazi_plugin = {
 -- Image Plugin
 local image_plugin = {
   '3rd/image.nvim',
+  enabled = not is_windows,
   dependencies = { 'vhyrro/luarocks.nvim' }, -- magick installed for rendering
   build = false,
   opts = {
@@ -376,6 +379,16 @@ local feed_plugin = {
 
 local music_controls_plugin = {
   'AntonVanAssche/music-controls.nvim',
+  cond = function()
+    return vim.fn.executable('playerctl') == 1
+  end,
+  config = function()
+    if vim.fn.executable('playerctl') == 0 then
+      vim.notify('music-controls.nvim disabled: playerctl not found', vim.log.levels.WARN)
+      return
+    end
+    require('music-controls').setup()
+  end,
 }
 
 local luxmotion_plugin = {
