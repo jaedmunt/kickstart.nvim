@@ -5,6 +5,19 @@
 --
 -- NOTE (JM): Define plugins directly in this file (not separate .lua files) to avoid loading errors
 
+-- HOW TO USE HACKERNEWS PLUGIN:
+-- 1. Install the Python package: pip install hackernews-api
+-- 2. Restart Neovim or run :UpdateRemotePlugins
+-- 3. Use the commands:
+--    - :HackerNews    (Opens top 30 stories in a split window)
+--    - :HackerOpen    (Opens the story under cursor in browser)
+--
+-- HOW TO USE FEED.NVIM (RSS Feed Reader):
+-- 1. Edit feeds.json file in your config directory to add your RSS feeds
+-- 2. Save and restart Neovim
+-- 3. Run :Feed or :FeedOpen to view your feeds
+-- 4. Format: [{"name": "Feed Name", "url": "https://example.com/feed"}]
+
 local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 -- -- CSV View Plugin - for csv files. Open a csv and use CsvViewToggle to enable the view.
@@ -376,13 +389,39 @@ local feed_plugin = {
   config = function()
     local ok, feed = pcall(require, 'feed')
     if ok then
+      -- Load feeds from feeds.json file
+      local feeds = {}
+      local feeds_file = vim.fn.stdpath('config') .. '/feeds.json'
+      
+      if vim.fn.filereadable(feeds_file) == 1 then
+        local json_content = vim.fn.readfile(feeds_file)
+        local json_str = table.concat(json_content, '\n')
+        local json_ok, json_parsed = pcall(vim.json.decode, json_str)
+        
+        if json_ok and json_parsed then
+          feeds = json_parsed
+          vim.notify('Loaded ' .. #feeds .. ' feeds from feeds.json', vim.log.levels.INFO)
+        else
+          vim.notify('Error parsing feeds.json: ' .. json_str, vim.log.levels.WARN)
+        end
+      else
+        vim.notify('feeds.json not found at ' .. feeds_file, vim.log.levels.WARN)
+        vim.notify('Create a feeds.json file in your config directory with RSS feed URLs', vim.log.levels.INFO)
+      end
+      
       local setup_ok, _ = pcall(feed.setup, {
-        -- see :h feed.config for configuration details
+        feeds = feeds,
+        update_interval = 30, -- Update every 30 minutes
       })
       if not setup_ok then
         vim.notify('feed.nvim setup failed - run :Feed to initialize feeds', vim.log.levels.WARN)
       end
     end
+    
+    -- Add convenient command alias
+    vim.api.nvim_create_user_command('FeedOpen', function()
+      vim.cmd('Feed')
+    end, { desc = 'Open RSS feeds in feed.nvim' })
   end,
 }
 

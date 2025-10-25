@@ -1,0 +1,842 @@
+[
+  {
+    "name": "404media Co",
+    "url": "https://www.404media.co/rss"
+  },
+  {
+    "name": "Magazine Sebastianraschka",
+    "url": "https://magazine.sebastianraschka.com/feed"
+  },
+  {
+    "name": "Aiacceleratorinstitute",
+    "url": "https://aiacceleratorinstitute.com/rss/"
+  },
+  {
+    "name": "Ai-techpark",
+    "url": "https://ai-techpark.com/category/ai/feed/"
+  },
+  {
+    "name": "Knowtechie",
+    "url": "https://knowtechie.com/category/ai/feed/"
+  },
+  {
+    "name": "Aibusiness",
+    "url": "https://aibusiness.com/rss.xml"
+  },
+  {
+    "name": "Aimodels Substack",
+    "url": "https://aimodels.substack.com/feed"
+  },
+  {
+    "name": "Artificialintelligence-news",
+    "url": "https://www.artificialintelligence-news.com/feed/rss/"
+  },
+  {
+    "name": "Venturebeat",
+    "url": "https://venturebeat.com/category/ai/feed/"
+  },
+  {
+    "name": "Ainowinstitute",
+    "url": "https://ainowinstitute.org/category/news/feed"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/aipromptprogramming"
+  },
+  {
+    "name": "Siliconangle",
+    "url": "https://siliconangle.com/category/ai/feed"
+  },
+  {
+    "name": "Aisnakeoil Substack",
+    "url": "https://aisnakeoil.substack.com/feed"
+  },
+  {
+    "name": "Eng Uber",
+    "url": "https://eng.uber.com/category/articles/ai/feed"
+  },
+  {
+    "name": "Anaconda",
+    "url": "https://www.anaconda.com/blog/feed"
+  },
+  {
+    "name": "Analyticsindiamag",
+    "url": "https://analyticsindiamag.com/feed/"
+  },
+  {
+    "name": "Stability",
+    "url": "https://stability.ai/blog?format=rss"
+  },
+  {
+    "name": "Feeds Arstechnica",
+    "url": "https://feeds.arstechnica.com/arstechnica/index"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/artificial"
+  },
+  {
+    "name": "Theconversation",
+    "url": "https://theconversation.com/europe/topics/artificial-intelligence-ai-90/articles.atom"
+  },
+  {
+    "name": "Theguardian",
+    "url": "https://www.theguardian.com/technology/artificialintelligenceai/rss"
+  },
+  {
+    "name": "Spacenews",
+    "url": "https://spacenews.com/tag/artificial-intelligence/feed/"
+  },
+  {
+    "name": "Futurism",
+    "url": "https://futurism.com/categories/ai-artificial-intelligence/feed"
+  },
+  {
+    "name": "Wired",
+    "url": "https://www.wired.com/feed/tag/ai/latest/rss"
+  },
+  {
+    "name": "Sciencedaily",
+    "url": "https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml"
+  },
+  {
+    "name": "Techrepublic",
+    "url": "https://www.techrepublic.com/rssfeeds/topic/artificial-intelligence/"
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/feed/artificialis"
+  },
+  {
+    "name": "Siliconangle",
+    "url": "https://siliconangle.com/category/big-data/feed"
+  },
+  {
+    "name": "Machinelearningmastery",
+    "url": "https://machinelearningmastery.com/blog/feed"
+  },
+  {
+    "name": "Davidstutz De",
+    "url": "https://davidstutz.de/category/blog/feed"
+  },
+  {
+    "name": "Together",
+    "url": "https://www.together.xyz/blog?format=rss"
+  },
+  {
+    "name": "Neptune",
+    "url": "https://neptune.ai/blog/feed"
+  },
+  {
+    "name": "Blog Eleuther",
+    "url": "https://blog.eleuther.ai/index.xml"
+  },
+  {
+    "name": "Pyimagesearch",
+    "url": "https://pyimagesearch.com/blog/feed"
+  },
+  {
+    "name": "Feeds Bloomberg",
+    "url": "https://feeds.bloomberg.com/technology/news.rss"
+  },
+  {
+    "name": "Feeds Businessinsider",
+    "url": "https://feeds.businessinsider.com/custom/all"
+  },
+  {
+    "name": "Wired",
+    "url": "https://www.wired.com/feed/category/business/latest/rss"
+  },
+  {
+    "name": "Every To",
+    "url": "https://every.to/chain-of-thought/feed.xml"
+  },
+  {
+    "name": "Huyenchip",
+    "url": "https://huyenchip.com/feed"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/computervision"
+  },
+  {
+    "name": "Computerworld",
+    "url": "http://www.computerworld.com/index.rss"
+  },
+  {
+    "name": "Txt Cohere",
+    "url": "https://txt.cohere.ai/rss/"
+  },
+  {
+    "name": "News Crunchbase",
+    "url": "https://news.crunchbase.com/feed"
+  },
+  {
+    "name": "Arxiv",
+    "url": "https://arxiv.org/rss/cs.CL"
+  },
+  {
+    "name": "Arxiv",
+    "url": "https://arxiv.org/rss/cs.CV"
+  },
+  {
+    "name": "Arxiv",
+    "url": "https://arxiv.org/rss/cs.LG"
+  },
+  {
+    "name": "Dagshub",
+    "url": "https://dagshub.com/blog/rss/"
+  },
+  {
+    "name": "Darkreading",
+    "url": "https://www.darkreading.com/rss_simple.asp"
+  },
+  {
+    "name": "Databricks",
+    "url": "https://www.databricks.com/feed"
+  },
+  {
+    "name": "Datafloq",
+    "url": "https://datafloq.com/feed/?post_type=post"
+  },
+  {
+    "name": "Datamachina Substack",
+    "url": "https://datamachina.substack.com/feed"
+  },
+  {
+    "name": "Datanami",
+    "url": "https://www.datanami.com/feed/"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/datascience"
+  },
+  {
+    "name": "Debuggercafe",
+    "url": "https://debuggercafe.com/feed/"
+  },
+  {
+    "name": "Deephaven Io",
+    "url": "https://deephaven.io/blog/rss.xml"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/deeplearning"
+  },
+  {
+    "name": "Deepmind",
+    "url": "https://deepmind.com/blog/feed/basic/"
+  },
+  {
+    "name": "Tech Eu",
+    "url": "https://tech.eu/category/deep-tech/feed"
+  },
+  {
+    "name": "Departmentofproduct Substack",
+    "url": "https://departmentofproduct.substack.com/feed"
+  },
+  {
+    "name": "Dev To",
+    "url": "https://dev.to/feed"
+  },
+  {
+    "name": "Eetimes",
+    "url": "https://www.eetimes.com/feed"
+  },
+  {
+    "name": "Engadget",
+    "url": "https://www.engadget.com/rss.xml"
+  },
+  {
+    "name": "Eugeneyan",
+    "url": "https://eugeneyan.com/rss/"
+  },
+  {
+    "name": "Explosion",
+    "url": "https://explosion.ai/feed"
+  },
+  {
+    "name": "Freethink",
+    "url": "https://www.freethink.com/feed/all"
+  },
+  {
+    "name": "Generational",
+    "url": "https://www.generational.pub/feed"
+  },
+  {
+    "name": "Forrester",
+    "url": "https://www.forrester.com/blogs/category/artificial-intelligence-ai/feed"
+  },
+  {
+    "name": "Ghacks",
+    "url": "https://www.ghacks.net/feed/"
+  },
+  {
+    "name": "Gizmodo",
+    "url": "https://gizmodo.com/rss"
+  },
+  {
+    "name": "Globalnews Ca",
+    "url": "https://globalnews.ca/tag/artificial-intelligence/feed"
+  },
+  {
+    "name": "Googleaiblog Blogspot",
+    "url": "http://googleaiblog.blogspot.com/atom.xml"
+  },
+  {
+    "name": "Gradientflow",
+    "url": "https://gradientflow.com/feed/"
+  },
+  {
+    "name": "Hackernoon",
+    "url": "https://hackernoon.com/tagged/ai/feed"
+  },
+  {
+    "name": "Feeds Feedburner",
+    "url": "https://feeds.feedburner.com/HealthTechMagazine"
+  },
+  {
+    "name": "Huggingface Co",
+    "url": "https://huggingface.co/blog/feed.xml"
+  },
+  {
+    "name": "Spectrum Ieee",
+    "url": "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
+  },
+  {
+    "name": "Feed Infoq",
+    "url": "https://feed.infoq.com/ai-ml-data-eng/"
+  },
+  {
+    "name": "Infoworld",
+    "url": "https://www.infoworld.com/category/analytics/index.rss"
+  },
+  {
+    "name": "Infoworld",
+    "url": "https://www.infoworld.com/category/machine-learning/index.rss"
+  },
+  {
+    "name": "Insidebigdata",
+    "url": "https://insidebigdata.com/feed"
+  },
+  {
+    "name": "Interconnects",
+    "url": "https://www.interconnects.ai/feed"
+  },
+  {
+    "name": "Ibtimes",
+    "url": "https://www.ibtimes.com/rss"
+  },
+  {
+    "name": "Jmlr",
+    "url": "https://www.jmlr.org/jmlr.xml"
+  },
+  {
+    "name": "Kdnuggets",
+    "url": "https://www.kdnuggets.com/feed"
+  },
+  {
+    "name": "Blog Langchain Dev",
+    "url": "https://blog.langchain.dev/rss/"
+  },
+  {
+    "name": "Lastweekin",
+    "url": "https://lastweekin.ai/feed"
+  },
+  {
+    "name": "Latent Space",
+    "url": "https://www.latent.space/feed"
+  },
+  {
+    "name": "Sifted Eu",
+    "url": "https://sifted.eu/feed/?post_type=article"
+  },
+  {
+    "name": "Zdnet",
+    "url": "https://www.zdnet.com/topic/artificial-intelligence/rss.xml"
+  },
+  {
+    "name": "Zdnet",
+    "url": "https://www.zdnet.com/topic/big-data/rss.xml"
+  },
+  {
+    "name": "Lightning",
+    "url": "https://lightning.ai/pages/feed/"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/MachineLearning"
+  },
+  {
+    "name": "Bmc",
+    "url": "https://www.bmc.com/blogs/categories/machine-learning-big-data/feed"
+  },
+  {
+    "name": "Blog Ml Cmu",
+    "url": "https://blog.ml.cmu.edu/feed"
+  },
+  {
+    "name": "Nature",
+    "url": "https://www.nature.com/subjects/machine-learning.rss"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/machinelearningnews"
+  },
+  {
+    "name": "Marktechpost",
+    "url": "https://www.marktechpost.com/feed"
+  },
+  {
+    "name": "Microsoft",
+    "url": "https://www.microsoft.com/en-us/research/feed/"
+  },
+  {
+    "name": "Mila Quebec",
+    "url": "https://mila.quebec/en/feed/"
+  },
+  {
+    "name": "News Mit",
+    "url": "https://news.mit.edu/topic/mitmachine-learning-rss.xml"
+  },
+  {
+    "name": "Technologyreview",
+    "url": "https://www.technologyreview.com/feed/"
+  },
+  {
+    "name": "Foundation Mozilla",
+    "url": "https://foundation.mozilla.org/en/blog/rss/"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/LanguageTechnology"
+  },
+  {
+    "name": "Sciencedaily",
+    "url": "https://www.sciencedaily.com/rss/computers_math/neural_interfaces.xml"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/r/neuralnetworks"
+  },
+  {
+    "name": "Newscientist",
+    "url": "https://www.newscientist.com/subject/technology/feed/"
+  },
+  {
+    "name": "Phys",
+    "url": "https://phys.org/rss-feed/technology-news/machine-learning-ai/"
+  },
+  {
+    "name": "Techxplore",
+    "url": "https://techxplore.com/rss-feed/machine-learning-ai-news/"
+  },
+  {
+    "name": "Assemblyai",
+    "url": "https://www.assemblyai.com/blog/rss/"
+  },
+  {
+    "name": "Nicholas Carlini",
+    "url": "https://nicholas.carlini.com/writing/feed.xml"
+  },
+  {
+    "name": "Developer Nvidia",
+    "url": "https://developer.nvidia.com/blog/feed"
+  },
+  {
+    "name": "Rss Nytimes",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+  },
+  {
+    "name": "Oneusefulthing",
+    "url": "https://www.oneusefulthing.org/feed"
+  },
+  {
+    "name": "Openai",
+    "url": "https://openai.com/blog/rss/"
+  },
+  {
+    "name": "Blog Paperspace",
+    "url": "https://blog.paperspace.com/rss/"
+  },
+  {
+    "name": "Petapixel",
+    "url": "https://petapixel.com/feed"
+  },
+  {
+    "name": "Philschmid De",
+    "url": "https://www.philschmid.de/feed.xml"
+  },
+  {
+    "name": "Erichartford",
+    "url": "https://erichartford.com/rss.xml"
+  },
+  {
+    "name": "Minimaxir",
+    "url": "https://minimaxir.com/post/index.xml"
+  },
+  {
+    "name": "Producthunt",
+    "url": "https://www.producthunt.com/feed"
+  },
+  {
+    "name": "Feeds Feedburner",
+    "url": "https://feeds.feedburner.com/PythonInsider"
+  },
+  {
+    "name": "Api Quantamagazine",
+    "url": "https://api.quantamagazine.org/feed"
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/feed/radix-ai-blog"
+  },
+  {
+    "name": "Feeds Feedburner",
+    "url": "https://feeds.feedburner.com/RBloggers"
+  },
+  {
+    "name": "Replicate",
+    "url": "https://replicate.com/blog/rss"
+  },
+  {
+    "name": "Notes Replicatecodex",
+    "url": "https://notes.replicatecodex.com/rss/"
+  },
+  {
+    "name": "Restofworld",
+    "url": "https://restofworld.org/feed/latest"
+  },
+  {
+    "name": "Sciencedaily",
+    "url": "https://www.sciencedaily.com/rss/computers_math/robotics.xml"
+  },
+  {
+    "name": "Tech Eu",
+    "url": "https://tech.eu/category/robotics/feed"
+  },
+  {
+    "name": "Rss Sciam",
+    "url": "http://rss.sciam.com/ScientificAmerican-Global"
+  },
+  {
+    "name": "Semianalysis",
+    "url": "https://www.semianalysis.com/feed"
+  },
+  {
+    "name": "Siliconrepublic",
+    "url": "https://www.siliconrepublic.com/feed"
+  },
+  {
+    "name": "Simonwillison",
+    "url": "https://simonwillison.net/atom/everything/"
+  },
+  {
+    "name": "Stackoverflow Blog",
+    "url": "https://stackoverflow.blog/feed/"
+  },
+  {
+    "name": "Crfm Stanford",
+    "url": "https://crfm.stanford.edu/feed"
+  },
+  {
+    "name": "Arxiv",
+    "url": "https://arxiv.org/rss/stat.ML"
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/feed/@netflixtechblog"
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/feed/@odsc"
+  },
+  {
+    "name": "Syncedreview",
+    "url": "https://syncedreview.com/feed"
+  },
+  {
+    "name": "Synthedia Substack",
+    "url": "https://synthedia.substack.com/feed"
+  },
+  {
+    "name": "Techcrunch",
+    "url": "https://techcrunch.com/feed/"
+  },
+  {
+    "name": "Techmeme",
+    "url": "https://www.techmeme.com/feed.xml"
+  },
+  {
+    "name": "Techmonitor",
+    "url": "https://techmonitor.ai/feed"
+  },
+  {
+    "name": "Reutersagency",
+    "url": "https://www.reutersagency.com/feed/?best-topics=tech"
+  },
+  {
+    "name": "Techspot",
+    "url": "https://www.techspot.com/backend.xml"
+  },
+  {
+    "name": "Bdtechtalks",
+    "url": "https://bdtechtalks.com/feed/"
+  },
+  {
+    "name": "Thealgorithmicbridge Substack",
+    "url": "https://thealgorithmicbridge.substack.com/feed"
+  },
+  {
+    "name": "Bair Berkeley",
+    "url": "https://bair.berkeley.edu/blog/feed.xml"
+  },
+  {
+    "name": "The-decoder",
+    "url": "https://the-decoder.com/feed/"
+  },
+  {
+    "name": "Thegradient",
+    "url": "https://thegradient.pub/rss/"
+  },
+  {
+    "name": "Theinformation",
+    "url": "https://www.theinformation.com/feed"
+  },
+  {
+    "name": "Theintrinsicperspective",
+    "url": "https://www.theintrinsicperspective.com/feed/"
+  },
+  {
+    "name": "Thenewstack Io",
+    "url": "https://thenewstack.io/feed"
+  },
+  {
+    "name": "Thenextweb",
+    "url": "https://thenextweb.com/neural/feed"
+  },
+  {
+    "name": "Theregister",
+    "url": "https://www.theregister.com/software/ai_ml/headlines.atom"
+  },
+  {
+    "name": "Rss Beehiiv",
+    "url": "https://rss.beehiiv.com/feeds/2R3C6Bt5wj.xml"
+  },
+  {
+    "name": "Thesequence Substack",
+    "url": "https://thesequence.substack.com/feed"
+  },
+  {
+    "name": "Thestack Technology",
+    "url": "https://www.thestack.technology/latest/rss/"
+  },
+  {
+    "name": "Blog Tensorflow",
+    "url": "https://blog.tensorflow.org/feeds/posts/default?alt=rss"
+  },
+  {
+    "name": "Thetradenews",
+    "url": "https://www.thetradenews.com/feed/"
+  },
+  {
+    "name": "Theverge",
+    "url": "https://www.theverge.com/rss/index.xml"
+  },
+  {
+    "name": "Feeds Libsyn",
+    "url": "http://feeds.libsyn.com/102459/rss"
+  },
+  {
+    "name": "Pub Towardsai",
+    "url": "https://pub.towardsai.net/feed"
+  },
+  {
+    "name": "Towardsdatascience",
+    "url": "https://towardsdatascience.com/feed"
+  },
+  {
+    "name": "Unite",
+    "url": "https://www.unite.ai/feed/"
+  },
+  {
+    "name": "Unwindai Substack",
+    "url": "https://unwindai.substack.com/feed"
+  },
+  {
+    "name": "Vice",
+    "url": "https://www.vice.com/en/rss/topic/ai"
+  },
+  {
+    "name": "Visualstudiomagazine",
+    "url": "https://visualstudiomagazine.com/rss-feeds/news.aspx"
+  },
+  {
+    "name": "Voicebot",
+    "url": "https://voicebot.ai/feed/"
+  },
+  {
+    "name": "Wandb",
+    "url": "https://wandb.ai/fully-connected/rss.xml"
+  },
+  {
+    "name": "Blogs Windows",
+    "url": "https://blogs.windows.com/feed"
+  },
+  {
+    "name": "Blog Wolfram",
+    "url": "https://blog.wolfram.com/feed/"
+  },
+  {
+    "name": "Aihub",
+    "url": "https://aihub.org/feed?cat=-473"
+  },
+  {
+    "name": "Topenddevs",
+    "url": "https://topenddevs.com/podcasts/adventures-in-machine-learning/rss.rss"
+  },
+  {
+    "name": "Aiandbanking Libsyn",
+    "url": "https://aiandbanking.libsyn.com/rss"
+  },
+  {
+    "name": "Feeds Blubrry",
+    "url": "https://feeds.blubrry.com/feeds/aitoday.xml"
+  },
+  {
+    "name": "Feeds Acast",
+    "url": "https://feeds.acast.com/public/shows/e421d786-ec36-4148-aa99-7a3b2928a779"
+  },
+  {
+    "name": "Dataengineeringpodcast",
+    "url": "https://www.dataengineeringpodcast.com/feed/mp3/"
+  },
+  {
+    "name": "Datascienceathome",
+    "url": "https://datascienceathome.com/feed.xml"
+  },
+  {
+    "name": "Dataskeptic Libsyn",
+    "url": "https://dataskeptic.libsyn.com/rss"
+  },
+  {
+    "name": "Datastori Es",
+    "url": "https://datastori.es/feed/"
+  },
+  {
+    "name": "Anchor Fm",
+    "url": "https://anchor.fm/s/41286f68/podcast/rss"
+  },
+  {
+    "name": "Thechatgptreport",
+    "url": "https://www.thechatgptreport.com/episodes?format=rss"
+  },
+  {
+    "name": "Aneyeonai Libsyn",
+    "url": "https://aneyeonai.libsyn.com/rss"
+  },
+  {
+    "name": "Geomob-podcast Castos",
+    "url": "https://geomob-podcast.castos.com/feed"
+  },
+  {
+    "name": "Anchor Fm",
+    "url": "https://anchor.fm/s/443868ac/podcast/rss"
+  },
+  {
+    "name": "Feeds Captivate Fm",
+    "url": "https://feeds.captivate.fm/gradient-dissent/"
+  },
+  {
+    "name": "Feed Podbean",
+    "url": "https://feed.podbean.com/hdsr/feed.xml"
+  },
+  {
+    "name": "Anchor Fm",
+    "url": "https://anchor.fm/s/174cb1b8/podcast/rss"
+  },
+  {
+    "name": "Feeds Soundcloud",
+    "url": "http://feeds.soundcloud.com/users/soundcloud:users:306749289/sounds.rss"
+  },
+  {
+    "name": "Nssdeviations",
+    "url": "http://nssdeviations.com/rss"
+  },
+  {
+    "name": "Feeds Transistor Fm",
+    "url": "https://feeds.transistor.fm/postgres-fm"
+  },
+  {
+    "name": "Changelog",
+    "url": "https://changelog.com/practicalai/feed"
+  },
+  {
+    "name": "Lexisnexisbis Libsyn",
+    "url": "http://lexisnexisbis.libsyn.com/rss"
+  },
+  {
+    "name": "Talkpython Fm",
+    "url": "https://talkpython.fm/episodes/rss"
+  },
+  {
+    "name": "Feeds Libsyn",
+    "url": "https://feeds.libsyn.com/468519/rss"
+  },
+  {
+    "name": "Podcast Emerj",
+    "url": "http://podcast.emerj.com/rss"
+  },
+  {
+    "name": "Feeds Soundcloud",
+    "url": "http://feeds.soundcloud.com/users/soundcloud:users:264034133/sounds.rss"
+  },
+  {
+    "name": "Anchor Fm",
+    "url": "https://anchor.fm/s/3952c6f8/podcast/rss"
+  },
+  {
+    "name": "Feeds Fireside Fm",
+    "url": "https://feeds.fireside.fm/theartistsofdatascience/rss"
+  },
+  {
+    "name": "Feeds Transistor Fm",
+    "url": "https://feeds.transistor.fm/the-data-engineering-show"
+  },
+  {
+    "name": "Thedataexchange Media",
+    "url": "https://thedataexchange.media/feed/"
+  },
+  {
+    "name": "Api Substack",
+    "url": "https://api.substack.com/feed/podcast/265424/s/1354.rss"
+  },
+  {
+    "name": "Themachinelearningpodcast",
+    "url": "https://www.themachinelearningpodcast.com/rss"
+  },
+  {
+    "name": "Feeds Megaphone Fm",
+    "url": "https://feeds.megaphone.fm/marketingai"
+  },
+  {
+    "name": "Twimlai",
+    "url": "https://twimlai.com/feed"
+  },
+  {
+    "name": "Feeds Transistor Fm",
+    "url": "https://feeds.transistor.fm/this-day-in-ai"
+  },
+  {
+    "name": "Anchor Fm",
+    "url": "https://anchor.fm/s/32ec7408/podcast/rss"
+  },
+  {
+    "name": "Assemblyai",
+    "url": "https://www.assemblyai.com/blog/rss/"
+  },
+  {
+    "name": "Aijobs",
+    "url": "https://aijobs.net/feed/"
+  }
+]
