@@ -383,47 +383,9 @@ local dashboard_plugin = {
   end,
 }
 
-local feed_plugin = {
-  'neo451/feed.nvim',
-  cmd = 'Feed',
-  config = function()
-    local ok, feed = pcall(require, 'feed')
-    if ok then
-      -- Load feeds from feeds.json file
-      local feeds = {}
-      local feeds_file = vim.fn.stdpath('config') .. '/feeds.json'
-      
-      if vim.fn.filereadable(feeds_file) == 1 then
-        local json_content = vim.fn.readfile(feeds_file)
-        local json_str = table.concat(json_content, '\n')
-        local json_ok, json_parsed = pcall(vim.json.decode, json_str)
-        
-        if json_ok and json_parsed then
-          feeds = json_parsed
-          vim.notify('Loaded ' .. #feeds .. ' feeds from feeds.json', vim.log.levels.INFO)
-        else
-          vim.notify('Error parsing feeds.json: ' .. json_str, vim.log.levels.WARN)
-        end
-      else
-        vim.notify('feeds.json not found at ' .. feeds_file, vim.log.levels.WARN)
-        vim.notify('Create a feeds.json file in your config directory with RSS feed URLs', vim.log.levels.INFO)
-      end
-      
-      local setup_ok, _ = pcall(feed.setup, {
-        feeds = feeds,
-        update_interval = 30, -- Update every 30 minutes
-      })
-      if not setup_ok then
-        vim.notify('feed.nvim setup failed - run :Feed to initialize feeds', vim.log.levels.WARN)
-      end
-    end
-    
-    -- Add convenient command alias
-    vim.api.nvim_create_user_command('FeedOpen', function()
-      vim.cmd('Feed')
-    end, { desc = 'Open RSS feeds in feed.nvim' })
-  end,
-}
+-- RSS Feed Plugin - Removed due to compatibility issues
+-- Your feeds.json file is still available in your config directory
+-- You can use it with external RSS readers or future Neovim RSS plugins
 
 local music_controls_plugin = {
   'AntonVanAssche/music-controls.nvim',
@@ -498,7 +460,6 @@ return {
   molten_plugin,
   lsp_with_coq_plugin,
   dashboard_plugin,
-  feed_plugin,
   music_controls_plugin,
   luxmotion_plugin,
   vim_be_good_plugin,
