@@ -453,6 +453,15 @@ local leetcode_plugin = {
   },
   }
 
+local todo_comments_plugin = {
+  'folke/todo-comments.nvim',
+  event = 'VimEnter',
+  dependencies = { 'nvim-lua/plenary.nvim' },
+  opts = {
+    signs = false, -- Don't show signs in the gutter
+  },
+}
+
 return {
   csvview_plugin,
   yazi_plugin,
@@ -460,6 +469,7 @@ return {
   molten_plugin,
   lsp_with_coq_plugin,
   dashboard_plugin,
+  todo_comments_plugin,
   music_controls_plugin,
   luxmotion_plugin,
   vim_be_good_plugin,
