@@ -651,13 +651,23 @@ local glow_plugin = {
     
     require("glow").setup({
       glow_path = glow_path,  -- nil will auto-detect, but we try to find it explicitly
-      border = "shadow",
-      style = "dark",           -- force dark mode preview
+      border = "rounded",     -- nicer rounded border instead of shadow
+      -- Try different styles: "dark", "light", "notty", "pink", "dracula", "nord", "gruvbox"
+      -- "dracula" is vibrant purple/pink, "nord" is cool blue, "gruvbox" is warm
+      style = "dracula",      -- vibrant purple/pink theme - change to "nord", "gruvbox", or "dark" if preferred
       pager = false,
-      width = 120,              -- wider markdown preview
+      width = 120,            -- wider markdown preview
       height = 100,
-      width_ratio = 0.7,        -- override width if window is large
+      width_ratio = 0.7,      -- override width if window is large
       height_ratio = 0.7,
+    })
+    
+    -- Custom highlight for glow border to make it more visually appealing
+    -- You can customize these colors to match your theme
+    vim.api.nvim_set_hl(0, "GlowBorder", {
+      fg = "#bd93f9",  -- Dracula purple border (matches dracula style)
+      bg = "NONE",
+      bold = true,
     })
   end,
 }
