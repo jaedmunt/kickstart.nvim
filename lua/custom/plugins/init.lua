@@ -474,22 +474,87 @@ local markdown_preview_plugin = {
   "iamcco/markdown-preview.nvim",
   cmd = { "MarkdownPreview", "MarkdownPreviewToggle", "MarkdownPreviewStop" },
   ft = { "markdown" },
-
-  -- https://github.com/iamcco/markdown-preview.nvim/issues/690#issuecomment-2254280534 
-  -- Optional — you can uncomment this if you haven't built the plugin yet:
   build = function(plugin)
-   if vim.fn.executable "npx" then
-      vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
+    -- Build the plugin - works on both Windows and WSL
+    if vim.fn.executable("npx") == 1 then
+      -- Use the plugin's directory and navigate to app subdirectory
+      local app_dir = plugin.dir .. (is_windows and "\\app" or "/app")
+      if is_windows then
+        -- Windows: use cmd.exe compatible commands
+        -- plugin.dir is already in Windows format from lazy.nvim
+        vim.cmd(string.format('!cd /d "%s" && npx --yes yarn install', app_dir))
+      else
+        -- WSL/Linux: use standard shell commands
+        vim.cmd(string.format('!cd "%s" && npx --yes yarn install', app_dir))
+      end
     else
+      -- Fallback to plugin's own install function
       vim.cmd [[Lazy load markdown-preview.nvim]]
       vim.fn["mkdp#util#install"]()
     end
   end,
   init = function()
-    if vim.fn.executable "npx" then vim.g.mkdp_filetypes = { "markdown" } end
+    if vim.fn.executable("npx") == 1 then
+      vim.g.mkdp_filetypes = { "markdown" }
+    end
   end,
-
   config = function()
+    -- Detect browser path for Windows vs WSL
+    local browser_path = ""
+    if is_windows then
+      -- Windows: try to find Brave browser in common locations
+      local possible_paths = {
+        "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+        "C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+        vim.fn.expand("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"),
+      }
+      for _, path in ipairs(possible_paths) do
+        if vim.fn.filereadable(path) == 1 then
+          browser_path = path
+          break
+        end
+      end
+      -- If not found, use empty string to use default browser
+      if browser_path == "" then
+        browser_path = ""  -- Let system default handle it
+      end
+    else
+      -- WSL: use WSL path format to access Windows browser
+      -- Try common Windows usernames (including current WSL user and common names)
+      local possible_users = {}
+      local wsl_user = vim.fn.expand("$USER")
+      if wsl_user and wsl_user ~= "" then
+        table.insert(possible_users, wsl_user)
+      end
+      -- Add common Windows usernames to try
+      table.insert(possible_users, "jaedo")  -- From workspace path
+      table.insert(possible_users, os.getenv("USER") or "")
+      
+      local possible_paths = {
+        "/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+        "/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe",
+      }
+      
+      -- Add user-specific paths
+      for _, user in ipairs(possible_users) do
+        if user and user ~= "" then
+          local user_path = "/mnt/c/Users/" .. user .. "/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe"
+          table.insert(possible_paths, user_path)
+        end
+      end
+      
+      for _, path in ipairs(possible_paths) do
+        if vim.fn.filereadable(path) == 1 then
+          browser_path = path
+          break
+        end
+      end
+      -- If not found, try xdg-open or default browser
+      if browser_path == "" and vim.fn.executable("xdg-open") == 1 then
+        browser_path = "xdg-open"
+      end
+    end
+
     -- Core behaviour
     vim.g.mkdp_auto_start = 0
     vim.g.mkdp_auto_close = 1
@@ -497,7 +562,7 @@ local markdown_preview_plugin = {
     vim.g.mkdp_command_for_global = 0
     vim.g.mkdp_open_to_the_world = 0
     vim.g.mkdp_open_ip = ""
-    vim.g.mkdp_browser = "/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+    vim.g.mkdp_browser = browser_path
     vim.g.mkdp_echo_preview_url = 0
     vim.g.mkdp_browserfunc = ""
 
@@ -524,7 +589,13 @@ local markdown_preview_plugin = {
     -- Server config
     vim.g.mkdp_port = ""
     vim.g.mkdp_page_title = "「${name}」"
-    vim.g.mkdp_images_path = "/home/user/.markdown_images"
+    
+    -- Set images path based on OS
+    if is_windows then
+      vim.g.mkdp_images_path = vim.fn.expand("~\\AppData\\Local\\markdown_images")
+    else
+      vim.g.mkdp_images_path = vim.fn.expand("~/.markdown_images")
+    end
 
     -- Filetypes + theme
     vim.g.mkdp_filetypes = { "markdown" }
@@ -540,8 +611,45 @@ local glow_plugin = {
   "ellisonleao/glow.nvim",
   cmd = "Glow",            -- lazy-load only when :Glow is used
   config = function()
+    -- Detect glow binary path for Windows and WSL/Linux
+    local glow_path = nil
+    if is_windows then
+      -- On Windows, try to find glow in PATH
+      if vim.fn.executable("glow") == 1 then
+        glow_path = "glow"  -- Use from PATH
+      else
+        -- Try common Windows installation locations
+        local possible_paths = {
+          vim.fn.expand("~/.local/bin/glow.exe"),
+          vim.fn.expand("~/AppData/Local/Programs/glow/glow.exe"),
+          "glow.exe",
+        }
+        for _, path in ipairs(possible_paths) do
+          if vim.fn.executable(path) == 1 then
+            glow_path = path
+            break
+          end
+        end
+      end
+    else
+      -- On WSL/Linux, try common locations
+      local possible_paths = {
+        "glow",  -- Try PATH first
+        "/usr/bin/glow",
+        "/usr/local/bin/glow",
+        "/usr/sbin/glow",
+        vim.fn.expand("~/.local/bin/glow"),
+      }
+      for _, path in ipairs(possible_paths) do
+        if vim.fn.executable(path) == 1 then
+          glow_path = path
+          break
+        end
+      end
+    end
+    
     require("glow").setup({
-      glow_path = "/usr/sbin/glow",           -- auto-detect glow binary
+      glow_path = glow_path,  -- nil will auto-detect, but we try to find it explicitly
       border = "shadow",
       style = "dark",           -- force dark mode preview
       pager = false,
