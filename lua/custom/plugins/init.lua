@@ -76,47 +76,47 @@ local image_plugin = {
 
 -- Jupyter Notebook plugin (Molten)
 local molten_plugin = {
-    'benlubas/molten-nvim',
-    build = ':UpdateRemotePlugins', -- Required for Jupyter integration
-    dependencies = {
-      '3rd/image.nvim', -- Enables inline image support if possible
-    },
-    config = function()
-      vim.g.molten_auto_open_output = true
-      vim.g.molten_image_provider = 'image' -- Use image.nvim for display of images in the notebook
-      vim.g.molten_wrap_output = true
-    end,
-    ft = { 'python', 'jupyter' },
+  'benlubas/molten-nvim',
+  build = ':UpdateRemotePlugins', -- Required for Jupyter integration
+  dependencies = {
+    '3rd/image.nvim', -- Enables inline image support if possible
+  },
+  config = function()
+    vim.g.molten_auto_open_output = true
+    vim.g.molten_image_provider = 'image' -- Use image.nvim for display of images in the notebook
+    vim.g.molten_wrap_output = true
+  end,
+  ft = { 'python', 'jupyter' },
 }
 
 local lsp_with_coq_plugin = {
-    'neovim/nvim-lspconfig', -- REQUIRED: for native Neovim LSP integration
-    lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-    dependencies = {
-      -- main one
-      { 'ms-jpq/coq_nvim', branch = 'coq' },
+  'neovim/nvim-lspconfig', -- REQUIRED: for native Neovim LSP integration
+  lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+  dependencies = {
+    -- main one
+    { 'ms-jpq/coq_nvim', branch = 'coq' },
 
-      -- 9000+ Snippets
-      { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
+    -- 9000+ Snippets
+    { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
 
-      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-      -- Need to **configure separately**
-      { 'ms-jpq/coq.thirdparty', branch = '3p' },
-      -- - shell repl
-      -- - nvim lua api
-      -- - scientific calculator
-      -- - comment banner
-      -- - etc
-    },
-    init = function()
-      vim.g.coq_settings = {
-        auto_start = true, -- if you want to start COQ at startup
-        -- Your COQ settings here
-      }
-    end,
-    config = function()
-      -- Your LSP settings here
-    end,
+    -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+    -- Need to **configure separately**
+    { 'ms-jpq/coq.thirdparty', branch = '3p' },
+    -- - shell repl
+    -- - nvim lua api
+    -- - scientific calculator
+    -- - comment banner
+    -- - etc
+  },
+  init = function()
+    vim.g.coq_settings = {
+      auto_start = 'shut-up', -- if you want to start COQ at startup, but without the annoying welcome message. Setting to true will also start, but with annoying message
+      -- Your COQ settings here
+    }
+  end,
+  config = function()
+    -- Your LSP settings here
+  end,
 }
 
 -- Don't change the ascii art. It is formatted correctly
@@ -128,12 +128,12 @@ local dashboard_plugin = {
     { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
-    local dashboard = require('dashboard')
-    local utils = require('dashboard.utils')
+    local dashboard = require 'dashboard'
+    local utils = require 'dashboard.utils'
     local uv = vim.loop
     local footer_timer
     local header_timer
-    local header_ns = vim.api.nvim_create_namespace('DashboardAnimatedHeader')
+    local header_ns = vim.api.nvim_create_namespace 'DashboardAnimatedHeader'
 
     -- - Diagram of a Chain Reaction -
     local header_lines = vim.split(
@@ -309,16 +309,20 @@ local dashboard_plugin = {
 
         local opened_at = uv.hrtime()
         footer_timer = uv.new_timer()
-        footer_timer:start(0, 25, vim.schedule_wrap(function()
-          if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
-            stop_footer_timer()
-            return
-          end
+        footer_timer:start(
+          0,
+          25,
+          vim.schedule_wrap(function()
+            if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+              stop_footer_timer()
+              return
+            end
 
-          local elapsed = (uv.hrtime() - opened_at) / 1e9
-          local formatted = string.format('Time To First Byte: %.3fs', elapsed)
-          vim.cmd({ cmd = 'DashboardUpdateFooter', args = { formatted } })
-        end))
+            local elapsed = (uv.hrtime() - opened_at) / 1e9
+            local formatted = string.format('Time To First Byte: %.3fs', elapsed)
+            vim.cmd { cmd = 'DashboardUpdateFooter', args = { formatted } }
+          end)
+        )
 
         local total_header_lines = #centered_header
 
@@ -345,27 +349,31 @@ local dashboard_plugin = {
           end
 
           header_timer = uv.new_timer()
-          header_timer:start(delay, 0, vim.schedule_wrap(function()
-            if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+          header_timer:start(
+            delay,
+            0,
+            vim.schedule_wrap(function()
+              if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype ~= 'dashboard' then
+                stop_header_timer()
+                return
+              end
+
+              vim.bo[bufnr].modifiable = true
+              vim.api.nvim_buf_set_lines(bufnr, idx - 1, idx, false, { centered_header[idx] })
+              vim.api.nvim_buf_add_highlight(bufnr, header_ns, 'DashboardHeader', idx - 1, 0, -1)
+              vim.bo[bufnr].modifiable = false
               stop_header_timer()
-              return
-            end
 
-            vim.bo[bufnr].modifiable = true
-            vim.api.nvim_buf_set_lines(bufnr, idx - 1, idx, false, { centered_header[idx] })
-            vim.api.nvim_buf_add_highlight(bufnr, header_ns, 'DashboardHeader', idx - 1, 0, -1)
-            vim.bo[bufnr].modifiable = false
-            stop_header_timer()
+              if idx == total_header_lines then
+                header_animated = true
+                stop_footer_timer()
+                return
+              end
 
-            if idx == total_header_lines then
-              header_animated = true
-              stop_footer_timer()
-              return
-            end
-
-            local next_delay = idx >= total_header_lines - 2 and 420 or math.max(20, delay * 0.8)
-            schedule_header_line(idx + 1, next_delay)
-          end))
+              local next_delay = idx >= total_header_lines - 2 and 420 or math.max(20, delay * 0.8)
+              schedule_header_line(idx + 1, next_delay)
+            end)
+          )
         end
 
         schedule_header_line(1, 140)
@@ -390,10 +398,10 @@ local dashboard_plugin = {
 local music_controls_plugin = {
   'AntonVanAssche/music-controls.nvim',
   cond = function()
-    return vim.fn.executable('playerctl') == 1
+    return vim.fn.executable 'playerctl' == 1
   end,
   config = function()
-    if vim.fn.executable('playerctl') == 0 then
+    if vim.fn.executable 'playerctl' == 0 then
       vim.notify('music-controls.nvim disabled: playerctl not found', vim.log.levels.WARN)
       return
     end
@@ -403,7 +411,7 @@ local music_controls_plugin = {
 
 local luxmotion_plugin = {
   'LuxVim/nvim-luxmotion',
-    config = function()
+  config = function()
     require('luxmotion').setup {
       cursor = {
         duration = 250, -- Cursor animation duration (ms)
@@ -422,8 +430,8 @@ local luxmotion_plugin = {
         cursor = true, -- Enable cursor motion keymaps
         scroll = true, -- Enable scroll motion keymaps
       },
-      }
-    end,
+    }
+  end,
 }
 
 local vim_be_good_plugin = {
@@ -444,14 +452,14 @@ local leetcode_plugin = {
       non_standalone = true,
     },
     storage = {
-      home = vim.fn.stdpath('data') .. '/leetcode',
-      cache = vim.fn.stdpath('cache') .. '/leetcode',
+      home = vim.fn.stdpath 'data' .. '/leetcode',
+      cache = vim.fn.stdpath 'cache' .. '/leetcode',
     },
     console = {
       open_on_runcode = true,
     },
   },
-  }
+}
 
 local todo_comments_plugin = {
   'folke/todo-comments.nvim',
@@ -462,7 +470,93 @@ local todo_comments_plugin = {
   },
 }
 
+local markdown_preview_plugin = {
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreview", "MarkdownPreviewToggle", "MarkdownPreviewStop" },
+  ft = { "markdown" },
+
+  -- https://github.com/iamcco/markdown-preview.nvim/issues/690#issuecomment-2254280534 
+  -- Optional — you can uncomment this if you haven't built the plugin yet:
+  build = function(plugin)
+   if vim.fn.executable "npx" then
+      vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
+    else
+      vim.cmd [[Lazy load markdown-preview.nvim]]
+      vim.fn["mkdp#util#install"]()
+    end
+  end,
+  init = function()
+    if vim.fn.executable "npx" then vim.g.mkdp_filetypes = { "markdown" } end
+  end,
+
+  config = function()
+    -- Core behaviour
+    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_auto_close = 1
+    vim.g.mkdp_refresh_slow = 0
+    vim.g.mkdp_command_for_global = 0
+    vim.g.mkdp_open_to_the_world = 0
+    vim.g.mkdp_open_ip = ""
+    vim.g.mkdp_browser = "/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+    vim.g.mkdp_echo_preview_url = 0
+    vim.g.mkdp_browserfunc = ""
+
+    -- Rendering options
+    vim.g.mkdp_preview_options = {
+      mkit = {},
+      katex = {},
+      uml = {},
+      maid = {},
+      disable_sync_scroll = 0,
+      sync_scroll_type = "middle",
+      hide_yaml_meta = 1,
+      sequence_diagrams = {},
+      flowchart_diagrams = {},
+      content_editable = false,
+      disable_filename = 0,
+      toc = {},
+    }
+
+    -- Custom styling
+    vim.g.mkdp_markdown_css = ""
+    vim.g.mkdp_highlight_css = ""
+
+    -- Server config
+    vim.g.mkdp_port = ""
+    vim.g.mkdp_page_title = "「${name}」"
+    vim.g.mkdp_images_path = "/home/user/.markdown_images"
+
+    -- Filetypes + theme
+    vim.g.mkdp_filetypes = { "markdown" }
+    vim.g.mkdp_theme = "dark"
+
+    -- Combine preview options
+    vim.g.mkdp_combine_preview = 0
+    vim.g.mkdp_combine_preview_auto_refresh = 1
+  end,
+}
+
+local glow_plugin = {
+  "ellisonleao/glow.nvim",
+  cmd = "Glow",            -- lazy-load only when :Glow is used
+  config = function()
+    require("glow").setup({
+      glow_path = "/usr/sbin/glow",           -- auto-detect glow binary
+      border = "shadow",
+      style = "dark",           -- force dark mode preview
+      pager = false,
+      width = 120,              -- wider markdown preview
+      height = 100,
+      width_ratio = 0.7,        -- override width if window is large
+      height_ratio = 0.7,
+    })
+  end,
+}
+
+
 return {
+  glow_plugin,
+  markdown_preview_plugin,
   csvview_plugin,
   yazi_plugin,
   image_plugin,

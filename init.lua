@@ -250,6 +250,10 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+-- JM: Disabling auto checking so we don't delete based on inconsistencies
+  checker = { enabled = false },
+  clean = { enabled = false },
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
