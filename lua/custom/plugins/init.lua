@@ -620,6 +620,7 @@ local glow_plugin = {
       else
         -- Try common Windows installation locations
         local possible_paths = {
+          "C:\\ProgramData\\chocolatey\\lib\\glow\\tools\\glow.exe",  -- Chocolatey installation
           vim.fn.expand("~/.local/bin/glow.exe"),
           vim.fn.expand("~/AppData/Local/Programs/glow/glow.exe"),
           "glow.exe",
