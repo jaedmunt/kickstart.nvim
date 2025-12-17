@@ -1,0 +1,64 @@
+
+# =========================================
+# ⚡ DOOM Shell — Starship Clean Version
+# =========================================
+add_newline = false
+
+format = """
+$custom.banner\
+$custom.header\
+$directory$git_branch$aws$time$character
+"""
+
+
+# --- DOOM Banner ---
+[custom.banner]
+command = 'if [ ! -f /tmp/.doom_banner_shown ]; then figlet -f slant "DOOM SHELL" | lolcat; touch /tmp/.doom_banner_shown; fi'
+when = "true"
+style = "bold red"
+format = "$output"
+
+# --- Header line ---
+[custom.header]
+command = 'echo "┌── :: root in"'
+style = "bold bright-red"
+format = "$output "
+
+# --- Directory display ---
+[directory]
+format = "[📂 $path](bold bright-cyan) "
+truncation_length = 3
+truncation_symbol = "…/"
+
+# --- Git branch ---
+[git_branch]
+symbol = "⛓ "
+format = "on [$symbol$branch](bold bright-red) "
+truncation_length = 25
+
+# --- AWS info ---
+[aws]
+symbol = "☁️ "
+format = "on [$symbol $region](dimmed bright-cyan) "
+
+# --- Time ---
+[time]
+disabled = false
+format = "[$time](bold bright-white)"
+
+# --- Character line (bottom prompt) ---
+[character]
+success_symbol = "[⚡](bold bright-red)"
+error_symbol = "[💀](bold red)"
+vicmd_symbol = "[🐿️](dimmed bright-cyan)"
+format = "\n└──⚡ ➤  $symbol "
+
+# --- Disable username/hostname for cleaner look ---
+[username]
+disabled = true
+[hostname]
+disabled = true
+
+# --- Python ---
+[python]
+format = 'via [${symbol}(${version} )($virtualenv)]($style)'
