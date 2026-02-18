@@ -119,6 +119,60 @@ examples of adding popularly requested plugins.
 
 [The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
 
+## Plugin Commands
+
+### Goplements
+
+Shows Go interface/struct relationships. Automatically enabled for Go files.
+
+```
+:GoplementEnable
+:GoplementDisable
+:GoplementToggle
+```
+
+### Grapple
+
+File navigation and tagging system.
+
+```
+<leader>m    Toggle tag for current file
+<leader>M    Open tags window
+<leader>n    Cycle to next tag
+<leader>p    Cycle to previous tag
+:Grapple toggle
+:Grapple toggle_tags
+:Grapple cycle_tags next
+:Grapple cycle_tags prev
+```
+
+### Undo Glow
+
+Visual feedback for undo/redo, yank, paste, search, and cursor movements.
+
+```
+u        Undo with highlight
+U        Redo with highlight
+p        Paste below with highlight
+P        Paste above with highlight
+n        Search next with highlight
+N        Search prev with highlight
+*        Search star with highlight
+#        Search hash with highlight
+gc       Toggle comment with highlight
+gcc      Toggle comment line with highlight
+```
+
+### Runner
+
+Floating terminal for running commands. Remembers last command per project.
+
+```
+<leader>r    Run last command
+<leader>o    Run new command (prompts for input)
+<leader>t    Toggle terminal window
+```
+
 ### FAQ
 
 * What should I do if I already have a pre-existing Neovim configuration?
