@@ -170,7 +170,7 @@ Floating terminal for running commands. Remembers last command per project.
 ```
 <leader>r    Run last command
 <leader>o    Run new command (prompts for input)
-<leader>t    Toggle terminal window
+<leader>rt   Toggle terminal window
 ```
 
 ### FAQ
