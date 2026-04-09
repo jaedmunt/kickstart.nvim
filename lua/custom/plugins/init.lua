@@ -37,6 +37,21 @@ local csvview_plugin = {
   end,
 }
 
+local conform_plugin = require("conform")
+conform_plugin.setup({
+  formatters_by_ft = {
+    markdown = { "cbfmt" },
+  },
+})
+
+-- Format on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.md",
+  callback = function(args)
+    conform_plugin.format({ bufnr = args.buf })
+  end,
+})
+
 -- Yazi Plugin - File explorer
 -- Note: DuckDB Parquet preview only works in WSL/Linux
 local yazi_plugin = {
@@ -529,12 +544,12 @@ local markdown_preview_plugin = {
       -- Add common Windows usernames to try
       table.insert(possible_users, "jaedo")  -- From workspace path
       table.insert(possible_users, os.getenv("USER") or "")
-      
+
       local possible_paths = {
         "/mnt/c/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
         "/mnt/c/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe",
       }
-      
+
       -- Add user-specific paths
       for _, user in ipairs(possible_users) do
         if user and user ~= "" then
@@ -542,7 +557,7 @@ local markdown_preview_plugin = {
           table.insert(possible_paths, user_path)
         end
       end
-      
+
       for _, path in ipairs(possible_paths) do
         if vim.fn.filereadable(path) == 1 then
           browser_path = path
@@ -589,7 +604,7 @@ local markdown_preview_plugin = {
     -- Server config
     vim.g.mkdp_port = ""
     vim.g.mkdp_page_title = "「${name}」"
-    
+
     -- Set images path based on OS
     if is_windows then
       vim.g.mkdp_images_path = vim.fn.expand("~\\AppData\\Local\\markdown_images")
@@ -648,7 +663,7 @@ local glow_plugin = {
         end
       end
     end
-    
+
     require("glow").setup({
       glow_path = glow_path,  -- nil will auto-detect, but we try to find it explicitly
       border = "rounded",     -- nicer rounded border instead of shadow
@@ -661,7 +676,7 @@ local glow_plugin = {
       width_ratio = 0.7,      -- override width if window is large
       height_ratio = 0.7,
     })
-    
+
     -- Custom highlight for glow border to make it more visually appealing
     -- You can customize these colors to match your theme
     vim.api.nvim_set_hl(0, "GlowBorder", {
@@ -960,4 +975,5 @@ return {
   luxmotion_plugin,
   vim_be_good_plugin,
   leetcode_plugin,
+  conform_plugin,
 }
