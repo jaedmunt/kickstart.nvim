@@ -983,7 +983,7 @@ local runner_plugin = {
 }
 
 return {
-  telescope_plugin
+  telescope_plugin,
   kanagawa_plugin,
   goplements_plugin,
   grapple_plugin,
