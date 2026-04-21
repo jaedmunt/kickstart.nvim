@@ -67,6 +67,32 @@ local yazi_plugin = {
   cmd = { 'Yazi' },
 }
 
+-- Telescope with file previews 
+local telescope_plugin = {
+  'nvim-telescope/telescope.nvim',
+  tag = '0.1.8',
+  dependencies = { 'nvim-lua/plenary.nvim' },
+  config = function()
+    local telescope = require('telescope')
+    telescope.setup({
+      defaults = {
+        layout_strategy = 'vertical',
+        layout_config = {
+          preview_cutoff = 1,      -- always show preview
+          width = 0.95,
+          height = 0.95,
+          preview_height = 0.6,
+        },
+        sorting_strategy = 'ascending',
+      },
+    })
+
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files (preview)' })
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep,  { desc = 'Live grep (preview)' })
+  end,
+}
+
 -- Image Plugin - Only works on Linux/WSL (requires ioctl)
 local image_plugin = {
   '3rd/image.nvim',
@@ -957,6 +983,7 @@ local runner_plugin = {
 }
 
 return {
+  telescope_plugin
   kanagawa_plugin,
   goplements_plugin,
   grapple_plugin,
